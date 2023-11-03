@@ -34,7 +34,7 @@ Base class with request implementation - build request with provided properties,
 Contains Test suits for specified API calls. 
 Copy or modify TestRunner.xml file allows to specify source of data for tests 
 
-## 2. Framework tree
+# Framework tree
 ```
 src
    ├───main
