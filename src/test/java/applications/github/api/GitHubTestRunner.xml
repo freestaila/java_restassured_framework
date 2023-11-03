@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Suite">
+    <parameter name="config-File-Path" value="src/main/java/config/envs/githubApiData.json"/>
+    <test name="GetUserTest">
+        <parameter name="expectedUserData"
+                   value="src/main/java/applications/github/api/user_module/data/user_data/user_1_data.json"/>
+
+        <classes>
+            <class name="applications.github.api.user.TC_GetUserInfo"/>
+        </classes>
+
+    </test>
+</suite>
