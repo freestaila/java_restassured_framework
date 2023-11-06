@@ -5,7 +5,7 @@
     <parameter name="config-File-Path" value="src/main/java/config/github/api/envs/githubApiData.json"/>
     <test name="GetUserTest">
         <parameter name="expectedUserData"
-                   value="src/main/java/applications/github/api/user_module/data/user_data/user_1_data.json"/>
+                   value="src/main/java/applications/github/api/user_module/test_data/user_data/user_1_data.json"/>
 
         <classes>
             <class name="applications.github.api.user.TC_GetUserInfo"/>
