@@ -1,12 +1,10 @@
-package config;
+package config.github.api;
 
-import io.restassured.RestAssured;
-import org.checkerframework.checker.signature.qual.BinaryNameOrPrimitiveType;
 import org.json.JSONObject;
 import org.testng.annotations.*;
 import utilities.jsonUtils.JsonUtils;
 
-public class ConfigTestNG {
+public class Config {
     @BeforeSuite
     @Parameters("config-File-Path")
     public void setup(String configFilePath) {
