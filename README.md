@@ -34,6 +34,25 @@ Base class with request implementation - build request with provided properties,
 Contains Test suits for specified API calls. 
 Copy or modify TestRunner.xml file allows to specify source of data for tests 
 
+## 5. Test Data
+
+[IMPORTANT]
+
+Don't commit properties, JSON files filled with data
+
+1. Use resources -> properies files to provide server data and necessary data.
+```
+example:
+    resources
+    └───user
+        └───user.token.properties
+
+Authorization=Bearer <your_token>  <─── paste user token for authorization 
+
+```
+        
+2. To compare request response data with expected data - use JSON files and load them to required Objects
+
 # Framework tree
 ```
 src
