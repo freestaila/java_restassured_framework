@@ -23,6 +23,5 @@
         <classes>
             <class name="applications.github.api.user.TC_PatchUserInfo"/>
         </classes>
-
     </test>
 </suite>

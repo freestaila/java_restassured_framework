@@ -1,9 +1,7 @@
 package applications.github.api.user_module.services;
 
 import applications.github.api.user_module.models.User;
-import utilities.jsonUtils.JsonUtils;
 import utilities.requestsUtils.AutomationException;
-import utilities.requestsUtils.HeaderConfigs;
 import utilities.requestsUtils.HttpStatus;
 import utilities.requestsUtils.RequestsUtil;
 import io.restassured.http.ContentType;

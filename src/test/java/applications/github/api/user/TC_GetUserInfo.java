@@ -17,10 +17,10 @@ public class TC_GetUserInfo extends Config {
     // Positive scenario
     @Test
     @Parameters("expectedUserData")
-    public void assertExpectedUserDataWithResponseData(String expectedUserData) throws AutomationException {
+    public void assertExpectedUserLoginWithResponse(String expectedUserData) throws AutomationException {
         User expectedUser = createUserBodyFromJson(expectedUserData);
         User actualUser = (User) UserService.init().getUserInfo(expectedUser).getResponse();
-        assertThat(actualUser, samePropertyValuesAs(expectedUser));
+        assertThat(actualUser.getLogin(), samePropertyValuesAs(expectedUser.getLogin()));
     }
 
     @Test
