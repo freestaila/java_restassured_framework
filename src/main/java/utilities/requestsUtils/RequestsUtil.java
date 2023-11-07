@@ -194,6 +194,34 @@ public class RequestsUtil {
     }
 
     /**
+     * Hits the Pre-Defined Request Specification as PATCH Request
+     * <p>
+     * On successful response, method validates:
+     * -   Status Code against the Status Code provided in Request Specification
+     * -   Content Type against the Content Type provided in Request Specification
+     *
+     * @return this
+     */
+    public RequestsUtil patch() {
+        requestSpecification = requestSpecBuilder.build();
+        apiResponse =
+                given()
+                        .log().all()
+                        .spec(requestSpecification)
+                        .when()
+                        .patch()
+                        .then()
+                        .assertThat()
+                        .statusCode(expectedStatusCode.getCode())
+                        .contentType(expectedResponseContentType)
+                        .and()
+                        .extract()
+                        .response();
+
+        return this;
+    }
+
+    /**
      * Hits the Pre-Defined Request Specification as PUT Request
      * <p>
      * On successful response, method validates:

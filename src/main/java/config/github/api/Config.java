@@ -4,11 +4,12 @@ import org.json.JSONObject;
 import org.testng.annotations.*;
 import utilities.jsonUtils.JsonUtils;
 
+import static utilities.requestsUtils.PropertiesUtil.loadProperties;
+
 public class Config {
     @BeforeSuite
     @Parameters("config-File-Path")
     public void setup(String configFilePath) {
-        JSONObject configData = JsonUtils.readJsonFromFileToObject(configFilePath);
-        System.setProperty("base_url",JsonUtils.readJsonValue(configData, "baseURL") );
+        System.setProperty("base_url",loadProperties(configFilePath).getProperty("baseURL"));
     }
 }

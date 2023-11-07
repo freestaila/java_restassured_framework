@@ -1,26 +1,23 @@
 package applications.github.api.user_module.services;
 
 import applications.github.api.user_module.models.User;
-import com.fasterxml.jackson.core.type.TypeReference;
+import utilities.jsonUtils.JsonUtils;
 import utilities.requestsUtils.AutomationException;
+import utilities.requestsUtils.HeaderConfigs;
 import utilities.requestsUtils.HttpStatus;
 import utilities.requestsUtils.RequestsUtil;
-import utilities.requestsUtils.builders.RequestBuilder;
 import io.restassured.http.ContentType;
 
-
-import java.util.List;
 import java.util.Map;
 
-import static applications.github.api.user_module.constants.UsersEndPoint.GET_USER_INFO;
+import static applications.github.api.user_module.constants.UsersEndpoints.USERS_ENDPOINT;
+import static applications.github.api.user_module.constants.UsersEndpoints.USER_ENDPOINT;
+import static utilities.jsonUtils.JsonUtils.readJsonFromFileToString;
 
 public class UserService {
-    private RequestBuilder requestBuilder;
-    private User expectedUser;
     private Object responsePayload;
     private boolean isNegativeTest = false;
     private HttpStatus httpStatus = HttpStatus.OK;
-    private Map<String, String> headers;
     private ContentType reponseContentType = ContentType.JSON;
 
     public static UserService init() {
@@ -36,7 +33,7 @@ public class UserService {
     public UserService getUserInfo(User expectedUser) throws AutomationException {
       RequestsUtil restInstance =
                 RequestsUtil.init()
-                        .path(GET_USER_INFO + expectedUser.getLogin())
+                        .path(USERS_ENDPOINT + expectedUser.getLogin())
                         .expectedStatusCode(httpStatus)
                         .expectedResponseContentType(reponseContentType)
                         .get();
@@ -47,6 +44,24 @@ public class UserService {
         return this;
     }
 
+    /**
+    * Send PATCH User request
+    * @param userDataToUpdate - convert data from JSON to String, avoid sending null fields except you would like to set them as null
+    */
+    public UserService patchUser(String userDataToUpdate, Map<String, String> headersWithBearerToken) throws AutomationException{
+        RequestsUtil restInstance =
+                RequestsUtil.init().headers(headersWithBearerToken).
+                        path(USER_ENDPOINT).
+                        contentType(ContentType.JSON).
+                        body(readJsonFromFileToString(userDataToUpdate)).
+                        expectedStatusCode(httpStatus.OK).
+                        expectedResponseContentType(reponseContentType).patch();
+
+        if(!isNegativeTest) {
+            responsePayload = restInstance.responseToPojo(User.class);
+        }
+        return this;
+    }
     public Object getResponse() {
         return responsePayload;
     }

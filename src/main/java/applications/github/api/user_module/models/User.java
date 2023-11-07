@@ -40,4 +40,11 @@ public class User {
     int following;
     String created_at;
     String updated_at;
+    String private_gists;
+    String total_private_repos;
+    String owned_private_repos;
+    String disk_usage;
+    String collaborators;
+    String two_factor_authentication;
+    Plan plan;
 }

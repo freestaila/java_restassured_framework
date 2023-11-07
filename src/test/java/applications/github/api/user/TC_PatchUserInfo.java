@@ -1,44 +1,26 @@
-//package applications.github.api.user;
-//
-//import config.ConfigTestNG;
-//import org.testng.annotations.Test;
-//
-//import static io.restassured.RestAssured.given;
-//
-//public class TC_PatchUserInfo {
-//    ConfigTestNG config;
-//    GetUserName getRequest;
-//
-//    public TC_PatchUserInfo() {
-//        this.config = new ConfigTestNG("src/main/java/config/envs/githubApiData.json");
-//        this.getRequest = new GetUserName();
-//    }
-//
-//    // Positive scenario
-//    @Test
-//    public void patchUserName() {
-//        String endpoint = (config.restAssured.baseURI);
-//        String headers = """
-//                {
-//                "Accept":"application/vnd.github+json"
-//                }
-//                """;
-//        String bodyParams = """
-//                {
-//                "name":"",
-//                "email":"",
-//                "blog":"",
-//                "twitter_username":"",
-//                "company":"",
-//                "location":"",
-//                "hireable":"",
-//                "bio":""
-//                }
-//                """;
-//        var response = given().body(bodyParams).when().patch(endpoint).then();
-//        //-H "Accept: application/vnd.github+json" \
-//        //-H "Authorization: Bearer <YOUR-TOKEN>" \
-//        //-H "X-GitHub-Api-Version: 2022-11-28" \
-//        // given().queryParam("id", 2).when().get(endpoint).then();
-//    }
-//}
+package applications.github.api.user;
+
+import applications.github.api.user_module.models.User;
+import applications.github.api.user_module.services.UserService;
+import config.github.api.Config;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import utilities.jsonUtils.JsonUtils;
+import utilities.requestsUtils.AutomationException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static utilities.requestsUtils.HeaderConfigs.createHeadersFromProperties;
+
+public class TC_PatchUserInfo extends Config {
+    // Positive scenario
+    @Test
+    @Parameters({"updatedUserData","headersPath","userTokenPath"})
+    public void assertThatAuthenticatedUserBioIsUpdated(String updatedUserDataJsonPath, String headersPath, String userTokenPath) throws AutomationException {
+        User newUserData = JsonUtils.jsonToObject(updatedUserDataJsonPath, User.class);
+        User patchUser = (User) UserService.init().
+                patchUser(updatedUserDataJsonPath, createHeadersFromProperties(new String[] {headersPath,userTokenPath})).
+                getResponse();
+        assertThat(newUserData.getBio() ,samePropertyValuesAs(patchUser.getBio()));
+    }
+}

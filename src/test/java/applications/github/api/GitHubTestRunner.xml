@@ -2,13 +2,26 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="User Suite">
-    <parameter name="config-File-Path" value="src/main/java/config/github/api/envs/githubApiData.json"/>
+    <parameter name="config-File-Path" value="github_api/github.server.properties"/>
     <test name="GetUserTest">
         <parameter name="expectedUserData"
                    value="src/main/java/applications/github/api/user_module/test_data/user_data/user_1_data.json"/>
 
         <classes>
             <class name="applications.github.api.user.TC_GetUserInfo"/>
+        </classes>
+
+    </test>
+
+    <test name="PatchUserTest">
+        <parameter name="updatedUserData"
+               value="src/main/java/applications/github/api/user_module/test_data/user_data/update_user_1.json"/>
+        <parameter name="headersPath"
+                   value="github_api/github.headers.properties"/>
+        <parameter name="userTokenPath"
+                   value="github_api/user/user.token.properties"/>
+        <classes>
+            <class name="applications.github.api.user.TC_PatchUserInfo"/>
         </classes>
 
     </test>
