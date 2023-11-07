@@ -47,6 +47,8 @@ public class UserService {
     /**
     * Send PATCH User request
     * @param userDataToUpdate - convert data from JSON to String, avoid sending null fields except you would like to set them as null
+     * Parameters that could be in param: "name", "email", "blog", "twitter_username", "company", "location", "hireable", "bio"
+     * Please use update_user_data_schema.json as template
     */
     public UserService patchUser(String userDataToUpdate, Map<String, String> headersWithBearerToken) throws AutomationException{
         RequestsUtil restInstance =
